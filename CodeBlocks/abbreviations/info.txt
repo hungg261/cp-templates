@@ -1,0 +1,6 @@
+/******************************************************************************
+Link: $(_LINK)
+Code: [[ print(_T("$(_LINK)").AfterLast(_T("/"))); ]]
+Time (YYYY-MM-DD-hh.mm.ss): $NOW_L
+*******************************************************************************/
+$if($(_isSAVED)){[[ GetEditorManager().GetActiveEditor().SetFilename(_T(_T("$(_LINK)").AfterLast(_T("/"))+".cpp")); ]]}{}|

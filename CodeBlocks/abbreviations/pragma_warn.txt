@@ -1,0 +1,4 @@
+#pragma warn -rvl
+#pragma warn -par
+#pragma warn -rch
+|

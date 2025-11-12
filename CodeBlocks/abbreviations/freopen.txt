@@ -1,0 +1,2 @@
+freopen("$if($(_FILENAME)){$(_FILENAME)}{[[ print(GetEditorManager().GetActiveEditor().GetFilename().AfterLast(_T("\\")).BeforeLast(_T(".cpp"))); ]]}.INP","r",stdin);
+freopen("$if($(_FILENAME)){$(_FILENAME)}{[[ print(GetEditorManager().GetActiveEditor().GetFilename().AfterLast(_T("\\")).BeforeLast(_T(".cpp"))); ]]}.OUT","w",stdout);|

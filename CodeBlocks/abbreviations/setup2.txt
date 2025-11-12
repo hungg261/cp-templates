@@ -1,0 +1,10 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+signed main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    $if($(_FILENAME)){//freopen("$(_FILENAME).INP","r",stdin);}{|}
+    $if($(_FILENAME)){//freopen("$(_FILENAME).OUT","w",stdout);|}{}
+    
+    return 0;
+}

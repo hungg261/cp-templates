@@ -1,0 +1,129 @@
+|/*
+    credit: hungg261 (me)
+    template nhan ma tran (v1)
+*/
+struct matrix{
+    int n, m;
+    int mod = 1e9 + 7;
+    vector<vector<int>> self;
+
+    void set_size(int n, int m, bool reset = false){
+        if(reset){
+            this->self.assign(n, vector<int>(m, 0));
+        }
+
+        this->n = n;
+        this->m = m;
+
+    }
+
+    matrix() = default;
+
+    matrix(int n, int m){
+        set_size(n, m, true);
+    }
+
+    matrix(int n, int m, vector<vector<int>> new_matrix){
+        this->self = new_matrix;
+        set_size(n, m, false);
+    }
+
+    static matrix get_identity(int n){
+        matrix res(n, n);
+        for(int i = 0; i < n; ++i){
+            res.modify(i, i, 1);
+        }
+
+        return res;
+    }
+
+    void modify(int i, int j, int value){ this->self[i][j] = value; }
+    void set_mod(int x){ this->mod = x; }
+
+    matrix operator + (const matrix& other) const{
+        if(!(this->n == other.n && this->m == other.m)){
+            throw runtime_error("Kich thuoc 2 ma tran phai giong nhau!");
+        }
+
+        matrix res(this->n, this->m);
+        for(int i = 0; i < this->n; ++i){
+            for(int j = 0; j < this->m; ++j){
+                res.modify(i, j, (this->self[i][j] % mod + other.self[i][j] % mod) % mod);
+            }
+        }
+
+        return res;
+    }
+
+    matrix operator - (const matrix& other) const{
+        if(!(this->n == other.n && this->m == other.m)){
+            throw runtime_error("Kich thuoc 2 ma tran phai giong nhau!");
+        }
+
+        matrix res(this->n, this->m);
+        for(int i = 0; i < this->n; ++i){
+            for(int j = 0; j < this->m; ++j){
+                res.modify(i, j, ((this->self[i][j] % mod - other.self[i][j] % mod) % mod + mod) % mod);
+            }
+        }
+
+        return res;
+    }
+
+    matrix operator * (const matrix& other) const{
+        if(!(this->m == other.n)){
+            throw runtime_error("Khong the nhan 2 ma tran nay duoc");
+        }
+
+        matrix res(this->n, other.m);
+        for(int i = 0; i < this->n; ++i){
+            for(int j = 0; j < other.m; ++j){
+                for(int k = 0; k < this->m; ++k){
+                    res.modify(i, j, (res.self[i][j] + (this->self[i][k] % mod) * (other.self[k][j] % mod) % mod) % mod);
+                }
+            }
+        }
+
+        return res;
+    }
+
+    matrix operator ^ (int b) const{
+        if(b == 0){
+            if(this->n == this->m){
+                return get_identity(this->n);
+            }
+            else{
+                throw runtime_error("Ma tran don vi khong ton tai");
+            }
+        }
+
+        matrix temp = *this;
+        matrix res = temp;
+
+
+        --b;
+        while(b > 0){
+            if((b & 1) == 1){
+                res = res * temp;
+            }
+
+            temp = temp * temp;
+            b >>= 1;
+        }
+
+        return res;
+    }
+
+    int get(int i, int j){
+        return this->self[i][j];
+    }
+
+    void output(){
+        for(int i = 0; i < this->n; ++i){
+            for(int j = 0; j < this->m; ++j){
+                cout << get(i, j) << ' ';
+            }
+            cout << '\n';
+        }
+    }
+};
